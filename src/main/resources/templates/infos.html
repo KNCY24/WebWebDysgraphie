@@ -13,12 +13,12 @@
 
 
 <div id="infos">
-    <form action="/saveInfos">
+    <form action="/saveInfos" onclick="verif()">
         <div id="form-container">
             <div> Quelques informations avant de commencer ... </div>
             <div id="selectSexe">
                 <SELECT id="select1" name="sexe" size="1">
-                    <option> Ton sexe </option>
+                    <option>Ton sexe</option>
                     <option> fille </option>
                     <option> garçon </option>
                 </SELECT>
@@ -49,6 +49,31 @@
 <div id="tablet"><img src="/medias/graphic-tablet.png" alt="tablet"/></div>
 <img id="letter" src="/medias/letter.png" alt="letter"/>
 <img id="elephant" src="/medias/elephant.png" alt="elephant"/>
+
+<script>
+    var select1=false;
+    var select2= false;
+    document.getElementById("saveInfos").disabled=true;
+    function verif(){
+        if(document.getElementById("select1").value != "Ton sexe"){
+            select1=true;
+        }else {
+            select1=false;
+        }
+        if(document.getElementById("select2").value != "Ton niveau scolaire"){
+            select2=true;
+        } else {
+            select2=false;
+        }
+        if(select1==true && select2==true){
+            document.getElementById("saveInfos").disabled=false;
+        }else{
+            document.getElementById("saveInfos").disabled=true;
+        }
+    }
+
+
+</script>
 
 <footer> <a href="">Mentions légales</a></footer>
 </body>

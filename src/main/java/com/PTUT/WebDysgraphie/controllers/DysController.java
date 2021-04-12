@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class DysController {
 
     private ArrayList<Point> listPoint = new ArrayList<Point>(); // Liste des points à tracer.
+    private ArrayList<Double> listPression = new ArrayList<Double>();
     private Tableau tableau;
     private long tempsDebut; // Temps de debut
     private long tempsPrecedent;
@@ -33,7 +34,7 @@ public class DysController {
 
     @RequestMapping("/write")
     public String write(Model model) {
-        model.addAttribute("vitesse","");
+        model.addAttribute("distance","");
         model.addAttribute("pression","");
         model.addAttribute("acceleration","");
         model.addAttribute("crayon","");
@@ -47,7 +48,7 @@ public class DysController {
     @GetMapping("/results")
     public String result(@RequestParam String timer, Model model) {
         Trace trace = new Trace(this.listPoint);
-        model.addAttribute("vitesse","ok");
+        model.addAttribute("distance","ok");
         model.addAttribute("pression","ko");
         model.addAttribute("acceleration","ok");
         model.addAttribute("crayon","ko");
@@ -73,15 +74,17 @@ public class DysController {
         return "page";
     }
 
-    @RequestMapping("/download")
-    public String download() {
-        this.tableau = new Tableau("fichier-"+System.currentTimeMillis()+".csv", "sheet1", this.listPoint);
+    @PostMapping("/addPression")
+    public String addPressure(@RequestParam double pression){
+        this.listPression.add(pression);
         return "page";
     }
 
-    @GetMapping("/interpretation")
-    public ResponseEntity<?> interpretation(@RequestParam String critere){
-        return ResponseEntity.ok(critere);
+    @RequestMapping("/download")
+    public String download() {
+        this.tableau = new Tableau("fichier-"+System.currentTimeMillis()+".csv", "sheet1", this.listPoint, this.listPression,this.sexe,this.niveau);
+        return "page";
     }
+
 
 }

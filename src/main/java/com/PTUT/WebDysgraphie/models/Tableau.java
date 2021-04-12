@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 
 public class Tableau {
 
-    private String version = "v.1.14";
-
     private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
         font.setBold(true);
@@ -28,7 +26,7 @@ public class Tableau {
         return style;
     }
 
-    public Tableau(String fileName, String sheetName, ArrayList<Point> listPoint) {
+    public Tableau(String fileName, String sheetName, ArrayList<Point> listPoint,ArrayList<Double> listPression, String sexe, String niveau) {
 
         FileOutputStream outFile = null;
         try {
@@ -40,54 +38,58 @@ public class Tableau {
             //
             HSSFCellStyle style = createStyleForTitle(workbook);
             row = sheet.createRow(rownum);
-            // Seg
+            // Sexe
             cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Seg");
+            cell.setCellValue("Sexe");
+            cell.setCellStyle(style);
+            //Niveau Scolaire
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue("Niveau scolaire");
             cell.setCellStyle(style);
             // Num
-            cell = row.createCell(1, CellType.STRING);
+            cell = row.createCell(2, CellType.STRING);
             cell.setCellValue("Num");
             cell.setCellStyle(style);
             // X/100mm
-            cell = row.createCell(2, CellType.STRING);
+            cell = row.createCell(3, CellType.STRING);
             //cell.setCellValue("X/100mm");
             cell.setCellValue("X");
             cell.setCellStyle(style);
             // Y/100mm
-            cell = row.createCell(3, CellType.STRING);
+            cell = row.createCell(4, CellType.STRING);
             //cell.setCellValue("Y/100mm");
             cell.setCellValue("Y");
             cell.setCellStyle(style);
             // Interv ms
-            cell = row.createCell(4, CellType.STRING);
+            cell = row.createCell(5, CellType.STRING);
             cell.setCellValue("Interv ms");
             cell.setCellStyle(style);
             // Time ms
-            cell = row.createCell(5, CellType.STRING);
+            cell = row.createCell(6, CellType.STRING);
             cell.setCellValue("Time ms");
             cell.setCellStyle(style);
             // Tip
-            cell = row.createCell(6, CellType.STRING);
+            cell = row.createCell(7, CellType.STRING);
             cell.setCellValue("Tip");
             cell.setCellStyle(style);
             // P
-            cell = row.createCell(7, CellType.STRING);
+            cell = row.createCell(8, CellType.STRING);
             cell.setCellValue("P");
             cell.setCellStyle(style);
             // Az
-            cell = row.createCell(8, CellType.STRING);
+            cell = row.createCell(9, CellType.STRING);
             //cell.setCellValue("Az");
             cell.setCellValue("Distance");
             cell.setCellStyle(style);
             // Al
-            cell = row.createCell(9, CellType.STRING);
+            cell = row.createCell(10, CellType.STRING);
             //cell.setCellValue("Al");
             cell.setCellValue("Vitesse (10-3)");
             cell.setCellStyle(style);
-            cell = row.createCell(10, CellType.STRING);
+            cell = row.createCell(11, CellType.STRING);
             cell.setCellValue("Accélération (10-3)");
             cell.setCellStyle(style);
-            cell = row.createCell(11, CellType.STRING);
+            cell = row.createCell(12, CellType.STRING);
             //cell.setCellValue("Al");
             cell.setCellValue("Pics d'accélération");
             cell.setCellStyle(style);
@@ -96,28 +98,34 @@ public class Tableau {
                 rownum++;
                 row = sheet.createRow(rownum);
 
-                // Seg (A)
-                cell = row.createCell(0, CellType.NUMERIC);
-                cell.setCellValue(0);
+                // Sexe
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(sexe);
+                // Niveau Scolaire
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue(niveau);
                 // Num (B)
-                cell = row.createCell(1, CellType.NUMERIC);
+                cell = row.createCell(2, CellType.NUMERIC);
                 cell.setCellValue(listPoint.get(i).getNum());
                 // X (C)
-                cell = row.createCell(2, CellType.NUMERIC);
+                cell = row.createCell(3, CellType.NUMERIC);
                 cell.setCellValue(listPoint.get(i).getX());
                 // Y (D)
-                cell = row.createCell(3, CellType.NUMERIC);
+                cell = row.createCell(4, CellType.NUMERIC);
                 cell.setCellValue(listPoint.get(i).getY());
                 // Interv ms (E)
-                cell = row.createCell(4, CellType.NUMERIC);
+                cell = row.createCell(5, CellType.NUMERIC);
                 cell.setCellValue(listPoint.get(i).getInterval());
                 // Time ms (F)
-                cell = row.createCell(5, CellType.NUMERIC);
+                cell = row.createCell(6, CellType.NUMERIC);
                 cell.setCellValue(listPoint.get(i).getTime());
                 // P (H)
-                cell = row.createCell(7, CellType.NUMERIC);
-                //METTRE LA VALEUR DE LA PRESSION
-                cell.setCellValue(2);
+                cell = row.createCell(8, CellType.NUMERIC);
+                if(i < listPression.size()) {
+                    cell.setCellValue(listPression.get(i));
+                } else {
+                    cell.setCellValue(0);
+                }
                 // Tip (G)
                 int num;
                 if (cell.getNumericCellValue() > 0) {
@@ -125,25 +133,25 @@ public class Tableau {
                 } else {
                     num = 0;
                 }
-                cell = row.createCell(6, CellType.NUMERIC);
+                cell = row.createCell(7, CellType.NUMERIC);
                 cell.setCellValue(num);
                 // Distance (I)
                 if (rownum > 1) {
                     double dist = listPoint.get(i).distanceAvec(listPoint.get(i - 1));
-                    cell = row.createCell(8, CellType.NUMERIC);
+                    cell = row.createCell(9, CellType.NUMERIC);
                     cell.setCellValue(dist);
                 }
                 // Vitesse (J)
                 if (rownum > 1) {
                     double vit = 1000 * listPoint.get(i).distanceAvec(listPoint.get(i - 1)) / (listPoint.get(i).getInterval());
-                    cell = row.createCell(9, CellType.NUMERIC);
+                    cell = row.createCell(10, CellType.NUMERIC);
                     cell.setCellValue(vit);
                 }
                 // Accélération (K)
                 if (rownum > 2) {
                     double acc = (listPoint.get(i - 2).vitesseEntre(listPoint.get(i - 1)) - listPoint.get(i - 1).vitesseEntre(listPoint.get(i))) * 1000 / listPoint.get(i - 2).IntervalleEntre(listPoint.get(i));
                     int nbP = 0;
-                    cell = row.createCell(10, CellType.NUMERIC);
+                    cell = row.createCell(11, CellType.NUMERIC);
                     cell.setCellValue(acc);
                     // Pics
                     if (acc > 15.0) {
@@ -153,7 +161,7 @@ public class Tableau {
                             nbP = -1;
                         }
                     }
-                    cell = row.createCell(11, CellType.NUMERIC);
+                    cell = row.createCell(12, CellType.NUMERIC);
                     cell.setCellValue(nbP);
                 }
             }

@@ -34,8 +34,8 @@
     <div id="details">
         <ul>
             <li onclick="deroule(this);">
-                <div>Vitesse<img src="/medias/down-arrow.png"/></div>
-                <div id="vitesse" th:utext="${vitesse}"> </div>
+                <div>Distance<img src="/medias/down-arrow.png"/></div>
+                <div id="vitesse" th:utext="${distance}"> </div>
             </li>
             <li onclick="deroule(this);">
                 <div>Pression<img src="/medias/down-arrow.png"/></div>
@@ -91,7 +91,16 @@
         Pressure.set('#canvas_draw', {
             change: function(force, evt0){
                 chronoOn();
-                console.log(force);
+                $.ajax({
+                    type:'post',
+                    url:'/addPression',
+                    data: {
+                        "pression":force
+                    },
+                    error:function(resultat,statut,error){
+                        console.log("error pression")
+                    }
+                });
             }
         }, {polyfill: true});
 
@@ -133,7 +142,6 @@
                     console.log(error.responseText)
                 }
             });
-            console.log(x+","+y)
             return {
                 posX : x,
                 posY : y
