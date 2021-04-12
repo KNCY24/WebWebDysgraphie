@@ -1,0 +1,107 @@
+body {
+    background-color: white;
+}
+
+.voile {
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 3;
+}
+
+.modal-body {
+    background-color: #F69679;
+    width: 50%;
+    height: 60%;
+    margin: auto;
+    margin-top: 4%;
+    padding: 15px;
+    border-radius: 25px;
+}
+
+#pingouin {
+    position: absolute;
+    right: 5%;
+    bottom: 36%;
+    width: 200px;
+}
+
+.modal-content {
+    text-align: center;
+    color:white;
+}
+
+.modal-content-primary div:first-child{
+    font-size: 60px;
+}
+
+.modal-content-primary div:nth-child(2), .modal-content-secondary div:first-child{
+    margin-top:15px;
+    text-align: center;
+    font-size:22px;
+}
+
+.modal-content-primary div:nth-child(3) {
+    background-color: #F7D28D;
+    font-family: 'Open Sans Condensed', sans-serif;
+    height: 40px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin: 50px auto auto auto;
+    font-size: 24px;
+}
+
+
+.modal-content-secondary div:nth-child(3) {
+    background-color: #F7D28D;
+    font-family: 'Open Sans Condensed', sans-serif;
+    height: 40px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin: 20px auto auto auto;
+    font-size: 24px;
+}
+
+.modal-content div:nth-child(3):hover {
+    background-color: #FF555C;
+    cursor:pointer;
+}
+
+.modal-content div:last-child{
+    width: 300px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    margin: auto;
+}
+
+.modal-content div:last-child span,.modal-content div:last-child a{
+    width:100%;
+    display:inline-block;
+}
+
+.modal-content div:last-child span{
+    text-align: left;
+}
+
+.modal-content div:last-child a{
+    text-align: right;
+}
+
+.modal-content div:last-child a:hover,.modal-content div:last-child span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.modal-content-secondary {
+    display: none;
+}
+
+video {
+    margin-top:15px;
+    border:5px solid white;
+    border-radius: 5px;
+}

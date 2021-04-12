@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="default">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ISIS Dysgraphie</title>
+    <link rel="stylesheet" href="/css/tutoriel.css" />
+    <script src="JS/tutoriel.js" type="text/javascript"></script>
+</head>
+<body>
+<div layout:fragment="content" th:with="page=1">
+    <div class="voile">
+        <div class="modal-body">
+            <div class="modal-content modal-content-primary">
+                <div>
+                    <img id="wacom-tablet" src="/medias/singetab.png" alt="tablet"/>
+                </div>
+                <div>Assure toi que la tablette graphique est bien connectée <br> et que le pilote adapté est installé</div>
+                <div onclick="nextPage();">Suivant</div>
+                <div><a href="/write">Passer le tutoriel >>></a></div>
+            </div>
+
+            <div class="modal-content modal-content-secondary">
+                <div>Tutoriel</div>
+                <video height="245px" controls="controls">
+                    <source src="/medias/Tuto.mp4" type="video/mp4"/>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div><a href="/write">Commencer</a></div>
+                <div><span onclick="previousPage();">Retour</span></div>
+            </div>
+        </div>
+    </div>
+    <img id="pingouin" src="/medias/penguin.png" alt="pingouin"/>
+</div>
+
+</body>
+</html>

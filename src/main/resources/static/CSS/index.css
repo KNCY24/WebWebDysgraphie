@@ -1,0 +1,212 @@
+/*palette*/
+/*
+noir    : #202020
+rouge   : #ED1C24
+jaune1  : #F7D28D (jaune orange)
+orange1 : #E77655 (orage foncé)
+jaune2  : #F7EF95 (jaune citron)
+orange2 : #F7C387 (orange claire)
+saumon  : #F69679
+blanc   : #F5F5F5
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Open+Sans:wght@300;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@font-face{
+    font-family:'digital';
+    src: url('digital-7/digital-7.ttf');
+}
+
+
+body {
+    margin:0;
+    background-color: #f69679;
+    font-family: 'Open Sans', sans-serif;
+    overflow:hidden;
+}
+
+body a {
+    color:white;
+    text-decoration: none;
+}
+
+nav {
+    padding-left:40px;
+    background-color: #202020;
+    color: white;
+    height: 62px;
+}
+
+nav img {
+    padding-top: 10px;
+    width:60px;
+}
+
+nav span {
+    font-size:22px;
+    position: relative;
+    top:-15px;
+    font-weight: 600;
+}
+
+#text {
+    color:white;
+    position: absolute;
+    top:15%;
+    right:20%;
+}
+
+#text div:first-child{
+    font-size: 60px;
+}
+
+#text div:nth-child(2){
+    font-size:26px;
+}
+
+#text div:last-child {
+    background-color:#ED1C24;
+    font-family: 'Open Sans Condensed', sans-serif;
+    height: 35px;
+    width: 200px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin-top: 50px;
+    margin-left: 60%;
+}
+
+#text div:last-child a {
+    font-size: 20px;
+}
+
+#text div:last-child:hover {
+    background-color: #FF555C;
+    cursor:pointer;
+}
+
+#writing, #tablet, #chrono {
+    position: absolute;
+    background-color: rgba(196,196,196,0.4);
+    padding:15px;
+    width:70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+#writing {
+    bottom:270px;
+    left:5%;
+}
+
+#chrono {
+    bottom:220px;
+    left:18%
+}
+
+#tablet {
+    bottom: 80px;
+    left: 28%;
+}
+
+#writing img, #chrono img {
+    width:70px;
+}
+
+#tablet img {
+    height: 58px;
+    width: 70px;
+}
+
+#letter {
+    position: absolute;
+    bottom: 35px;
+    left: 8%;
+}
+
+#elephant {
+    position: absolute;
+    right: 10%;
+    bottom: 35px;
+}
+
+footer {
+    background-color: #E77655;
+    text-align: left;
+    position: absolute;
+    height: 40px;
+    font-size: 13px;
+    width: 100%;
+    bottom: 0px;
+    line-height: 40px;
+}
+
+footer a {
+    padding-left:25px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#infos{
+    width: 30%;
+    margin: auto;
+    text-align: center;
+}
+
+#infos button{
+    border: none;
+    color: white;
+    background-color:#ED1C24;
+    font-family: 'Open Sans Condensed', sans-serif;
+    height: 35px;
+    width: 200px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 35px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#infos button:hover {
+    background-color: #FF555C;
+    cursor:pointer;
+}
+
+#form-container{
+    border: 6px solid #F7EF95;
+    border-radius: 5px;
+    width: 100%;
+    margin: 20px auto auto auto;
+    background-color: #f7f7f7;
+    padding: 15px 15px 0 15px;
+}
+
+#form-container div:first-child{
+    margin-top:50px;
+    font-size: 22px;
+    font-family: 'Dancing Script', cursive;
+}
+
+#form-container img {
+    width: 40%;
+    margin: 0 auto auto 63%;
+}
+
+select{
+    font-family: 'Open Sans Condensed';
+    font-size:18px;
+    margin-top: 45px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
+    width: 40%;
+}
+
+select:hover{
+    cursor: pointer;
+}
