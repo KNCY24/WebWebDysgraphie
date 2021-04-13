@@ -54,6 +54,9 @@
 
     <script>
         let d = false;
+        let td= 0;
+        let tf = 0;
+        let te = 0;
         function deroule(element){
             if(d === false) {
                 for (let i = 0; i < document.getElementsByTagName('LI').length; i++) {
@@ -149,6 +152,7 @@
         }
 
         function downDrawligne(oEvent){
+            t1 = Date.now();
             changeColor();
             oEvent.preventDefault();
             var  oCanvas = oEvent.currentTarget,
@@ -160,6 +164,8 @@
         }
 
         function upDrawligne(oEvent){
+            t2 = Date.now()
+            te = te + (t2-t1)
             var oCanvas = oEvent.currentTarget;
             oCanvas.bDraw = false;
             capturer(true);
@@ -198,6 +204,13 @@
                 oCtx = oCanvas.getContext('2d');
             oCtx.clearRect(0,0,oCanvas.width,oCanvas.height);
             capturer(false);
+
+            $.ajax({
+                url: '/erase',
+                success: function (response) {
+                    console.log("Canvas effacé");
+                }
+            });
         }
 
         document.addEventListener('DOMContentLoaded',function(){
@@ -247,12 +260,11 @@
         }
 
         function results() {
-            var time = document.getElementById("minutes").textContent+":"+document.getElementById("seconds").textContent;
             $.ajax({
                 url: '/results',
                 method:'get',
                 data: {
-                    "timer":time
+                    "tempsE":te
                 },
                 datatype:'html',
                 success: function (response) {

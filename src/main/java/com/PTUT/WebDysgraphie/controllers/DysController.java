@@ -1,5 +1,6 @@
 package com.PTUT.WebDysgraphie.controllers;
 
+import com.PTUT.WebDysgraphie.models.Lecteur;
 import com.PTUT.WebDysgraphie.models.Point;
 import com.PTUT.WebDysgraphie.models.Tableau;
 import com.PTUT.WebDysgraphie.models.Trace;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Controller
@@ -23,22 +25,34 @@ public class DysController {
     private long tempsPrecedent;
     private String sexe;
     private String niveau;
-    private String time;
+    private long tempsTotal;
 
 
     @RequestMapping("/init")
     public String init(){
         this.tempsDebut = System.currentTimeMillis();
+        this.tempsPrecedent = 0;
+        return "page";
+    }
+
+    @RequestMapping("/erase")
+    public String effacer(){
+        this.listPression.clear();
+        this.listPoint.clear();
         return "page";
     }
 
     @RequestMapping("/write")
     public String write(Model model) {
+        if(sexe == null || niveau ==null){
+            return "infos";
+        }
         model.addAttribute("distance","");
         model.addAttribute("pression","");
         model.addAttribute("acceleration","");
         model.addAttribute("crayon","");
         this.listPoint.clear();
+        this.listPression.clear();
         return "page";
     }
 
@@ -46,15 +60,26 @@ public class DysController {
     public String infos(){ return "infos"; }
 
     @GetMapping("/results")
-    public String result(@RequestParam String timer, Model model) {
+    public String result(@RequestParam long tempsE,Model model) throws IOException {
         Trace trace = new Trace(this.listPoint);
-        model.addAttribute("distance","ok");
-        model.addAttribute("pression","ko");
-        model.addAttribute("acceleration","ok");
-        model.addAttribute("crayon","ko");
-        this.time = timer;
+        Lecteur excelmodel = new Lecteur();
+        ArrayList<Object> listvaleur = excelmodel.lire("D:/WebDysgraphie/Dataset/Modele.csv",sexe,niveau);
+        this.tempsTotal = System.currentTimeMillis() - this.tempsDebut;
+
+        //distance parcourue
+        model.addAttribute("distance", excelmodel.analyzeDistance(listvaleur,this.listPoint));
+
+        //pression
+        model.addAttribute("pression",excelmodel.analyzePressure(listvaleur,this.listPression));
+
+        //nb pics accélération/deceleration
+        model.addAttribute("acceleration",excelmodel.analyzeAcceleration(listvaleur,this.listPoint));
+
+        //rapport temps crayon en l'air/crayon sur la feuille
+        model.addAttribute("crayon",excelmodel.analyzeTaTf(listvaleur,tempsE,this.tempsTotal));
         return "page::#details";
     }
+
 
     @RequestMapping("/saveInfos")
     public String saveInfos(@RequestParam String sexe, @RequestParam String niveau){
